@@ -18,6 +18,11 @@
 * Technical implementation details
     * OAuth 2.0 (store secret keys securely on the server/cloud)
         * Be sure to hash and salt the passwords (find a library for all your auth stuff)
-    * Spotify doesn't have event listening/publishing or Long polling (shame!)
-        * No choice but to poll the crap out of their service to keep up to date with what's playing.
-        * keep it to every 5 seconds for right now
+    * How to get now playing information
+        * get information from Spotify
+            * Spotify doesn't have event listening/publishing or Long polling (shame!)
+            * No choice but to poll the crap out of their service to keep up to date with what's playing.
+            * keep it to every 5 seconds for right now
+        * Get information from the phone
+            * iOS has an API that exposes the music player
+            * ionic framework has a way of accessing it as well: check "Music Controls" in ionic-native, aka cordova-music-controls-plugin
