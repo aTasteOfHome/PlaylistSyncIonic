@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let accountType of accountTypes" (click)="accountSelected($event, accountType)">
+      <ion-icon [name]="accountType.icon" item-start></ion-icon>
+      {{accountType.title}}
+    </button>
+  </ion-list>
+</ion-content>
