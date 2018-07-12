@@ -7,8 +7,6 @@ import * as clientInfo from './client_info.json';
 
 // import { LoginPage } from '../login/login'
 
-declare let window: any;
-
 @Component({
     selector: 'page-login-home',
     templateUrl: 'loginHome.html'
@@ -44,19 +42,13 @@ export class LoginHomePage {
     }
     
     public login(accountType): Promise<any> {
-        return new Promise(this.httpLogin.bind(this));
+        return new Promise((resolve, reject) => this.httpLogin.call(this, accountType.title, resolve, reject));
     }
 
-    private httpLogin(resolve, reject): any {
-        const loginInfo = {
-            Spotify: {
-                redirect_uri: 'PlaylistSync-login://returnAfterLogin',
-                client_id: '',
-                client_secret: ''
-            }
-        };
-        let accountInfo = loginInfo['Spotify'];
+    private httpLogin(accountType, resolve, reject): any {
+        let accountInfo = clientInfo[accountType];
         console.log('Login start');
+        console.log(accountType, clientInfo);
 
         this.http.post('https://accounts.spotify.com/api/token', {
             grant_type: 'client_credentials'
@@ -65,7 +57,7 @@ export class LoginHomePage {
             'Content-Type': 'application/x-www-form-urlencoded'
         })
         .then(resp => {
-            console.log('Got response from Spotify!');
+            console.log(`Got response from ${accountType}!`);
             console.log('%j', Object.keys(resp));
             console.log(resp.status)
             console.log(resp.data)
