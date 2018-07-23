@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
-import * as _ from 'lodash';
-import * as clientInfo from './client_info.json';
 // import { Http, Headers, RequestOptions } from '@angular/http';
 
 // import { LoginPage } from '../login/login'
@@ -36,9 +34,6 @@ export class LoginHomePage {
                 resp => console.log(resp)
             )
             .catch(error => console.log(error));
-        // this.navCtrl.push(LoginPage, {
-        //     accountType
-        // });
     }
     
     public login(accountType): Promise<any> {
@@ -46,32 +41,18 @@ export class LoginHomePage {
     }
 
     private httpLogin(accountType, resolve, reject): any {
-        let accountInfo = clientInfo[accountType];
-        console.log('Login start');
-        console.log(accountType, clientInfo);
+        console.log(`Login start for ${accountType.title}`);
 
-        this.http.post('https://accounts.spotify.com/api/token', {
-            grant_type: 'client_credentials'
-        }, {
-            Authorization: `Basic ${btoa(`${accountInfo.client_id}:${accountInfo.client_secret}`)}`,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        .then(resp => {
-            console.log(`Got response from ${accountType}!`);
-            console.log('%j', Object.keys(resp));
-            console.log(resp.status)
-            console.log(resp.data)
-            console.log(resp.headers)
-            console.log(resp.url)
-            if (resp.status !== 200) {
-                return reject('Failed to authenticate with Spotify');
-            }
-            return resolve(_.get(resp, 'data.access_token'));
-        })
-        .catch(err => {
-            console.log('Failed to authenticate with Spotify')
-            console.log(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))));
-            reject(err);
-        });
+        this.http.get(`http://localhost:9999/auth/${accountType.title}`, {}, {})
+            .then(resp => {
+                console.log('Got spotify response');
+                console.log(JSON.stringify(Object.keys(resp)));
+                console.log(JSON.stringify(resp));
+            })
+            .catch(err => {
+                console.log('Failed to authenticate with Spotify')
+                console.log(JSON.stringify(Object.keys(err)));
+                console.log(JSON.stringify(err));
+            })
     }
 }
