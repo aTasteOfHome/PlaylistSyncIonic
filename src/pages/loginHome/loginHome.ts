@@ -43,13 +43,15 @@ export class LoginHomePage {
     private httpLogin(accountType, resolve, reject): any {
         console.log(`Login start for ${accountType.title}`);
 
-        this.http.get(`http://localhost:9999/auth/${accountType.title}`, {}, {})
+        this.http.get(`http://localhost:9999/${accountType.title}/auth`, {}, {})
             .then(resp => {
+                alert('Got spotify response');
                 console.log('Got spotify response');
                 console.log(JSON.stringify(Object.keys(resp)));
                 console.log(JSON.stringify(resp));
             })
             .catch(err => {
+                alert('Failed to authenticate with Spotify');
                 console.log('Failed to authenticate with Spotify')
                 console.log(JSON.stringify(Object.keys(err)));
                 console.log(JSON.stringify(err));
