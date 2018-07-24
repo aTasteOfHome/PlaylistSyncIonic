@@ -6,15 +6,15 @@ import { HTTP } from '@ionic-native/http';
 // import { LoginPage } from '../login/login'
 
 @Component({
-    selector: 'page-login-home',
-    templateUrl: 'loginHome.html'
+    selector: 'page-accounts',
+    templateUrl: 'accounts.html'
 })
-export class LoginHomePage {
+export class AccountsPage {
     accountTypes: Array<{
         title: string,
         icon: string
     }>;
-    loginHomePage: LoginHomePage
+    accountsPage: AccountsPage
     constructor(public navCtrl: NavController, private platform: Platform, private http: HTTP) {
         //get this info from server if a website, store here if an app; 
         //we'll worry about it later
