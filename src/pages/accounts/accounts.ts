@@ -37,13 +37,8 @@ export class AccountsPage {
     }
     
     public login(accountType): Promise<any> {
-        return new Promise((resolve, reject) => this.httpLogin.call(this, accountType.title, resolve, reject));
-    }
-
-    private httpLogin(accountType, resolve, reject): any {
         console.log(`Login start for ${accountType.title}`);
-
-        this.http.get(`http://localhost:9999/${accountType.title}/auth`, {}, {})
+        return this.http.get(`http://localhost:9999/${accountType.title}/auth`, {}, {})
             .then(resp => {
                 alert('Got spotify response');
                 console.log('Got spotify response');
@@ -55,6 +50,6 @@ export class AccountsPage {
                 console.log('Failed to authenticate with Spotify')
                 console.log(JSON.stringify(Object.keys(err)));
                 console.log(JSON.stringify(err));
-            })
+            });
     }
 }
