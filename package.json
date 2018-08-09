@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "5.2.9",
     "@ionic-native/core": "4.5.3",
     "@ionic-native/http": "^4.9.1",
+    "@ionic-native/in-app-browser": "^4.11.0",
     "@ionic-native/music-controls": "^4.9.1",
     "@ionic-native/splash-screen": "4.5.3",
     "@ionic-native/status-bar": "4.5.3",
