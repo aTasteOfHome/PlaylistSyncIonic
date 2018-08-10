@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/util';
-// import { Http, Headers, RequestOptions } from '@angular/http';
-
-// import { LoginPage } from '../login/login'
+import accountInfo from './accountInfo.json';
 
 @Component({
     selector: 'page-accounts',
@@ -20,13 +17,7 @@ export class AccountsPage {
     constructor(public navCtrl: NavController, private platform: Platform, private http: HTTP, private browser: InAppBrowser) {
         //get this info from server if a website, store here if an app; 
         //we'll worry about it later
-        this.accountTypes = [{
-            title: 'Spotify',
-            icon: 'flask'
-        }, {
-            title: 'Youtube',
-            icon: 'build'
-        }];
+        this.accountTypes = accountInfo.accountTypes;
     }
 
     accountSelected(event, accountType) {
@@ -38,7 +29,7 @@ export class AccountsPage {
     
     public login(accountType): Promise<any> {
         console.log(`Login start for ${accountType.title}`);
-        return this.http.get(`https://us-east1-playlistsync-2114192.cloudfunctions.net/${accountType.title}/api/auth`, {}, {})
+        return this.http.get(`${accountInfo.apiUrl}/${accountType.title.toLocaleLowerCase()}/api/auth`, {}, {})
             .then(resp => {
                 alert('Got spotify response');
                 console.log('Got spotify response');
@@ -55,7 +46,7 @@ export class AccountsPage {
 
     public loginWithBrowser(accountType): Promise<any> {
         console.log(`Login start for ${accountType.title}`);
-        const host = `https://us-east1-playlistsync-2114192.cloudfunctions.net/${accountType.title}/api`;
+        const host = `${accountInfo.apiUrl}/${accountType.title.toLocaleLowerCase()}/api`;
         return new Promise((resolve, reject) => {
             let browserRef = this.browser.create(
                 `${host}/auth`,
@@ -70,7 +61,7 @@ export class AccountsPage {
                 console.log('Got loadstart event');
                 console.log(Object.keys(event));
                 console.log(event);
-                
+
                 if (event.url.indexOf(`${host}/authCb`) !==0) return;
 
                 browserRef.on('exit').subscribe(event => {});
