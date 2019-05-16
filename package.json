@@ -31,6 +31,7 @@
     "@types/lodash": "^4.14.111",
     "cordova": "^8.0.0",
     "cordova-ios": "4.5.4",
+    "cordova-plugin-music-controls": "git+https://github.com/homerours/cordova-music-controls-plugin.git",
     "cryptiles": "github:hapijs/cryptiles",
     "hoek": "github:hapijs/hoek",
     "ionic-angular": "3.9.2",
@@ -53,7 +54,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-advanced-http": {}
+      "cordova-plugin-advanced-http": {},
+      "cordova-plugin-music-controls": {}
     },
     "platforms": [
       "ios"
